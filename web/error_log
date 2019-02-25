@@ -1,0 +1,2 @@
+[17-Nov-2018 06:08:46 America/New_York] PHP Warning:  require(/home/revicqfn/shufflehex_admin/web/../vendor/autoload.php): failed to open stream: No such file or directory in /home/revicqfn/shufflehex_admin/web/index.php on line 7
+[17-Nov-2018 06:08:46 America/New_York] PHP Fatal error:  require(): Failed opening required '/home/revicqfn/shufflehex_admin/web/../vendor/autoload.php' (include_path='.:/opt/alt/php72/usr/share/pear') in /home/revicqfn/shufflehex_admin/web/index.php on line 7

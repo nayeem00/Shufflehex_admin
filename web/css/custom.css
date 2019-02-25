@@ -1,0 +1,23 @@
+.main-logo{
+    width: 180px !important;
+    height: 30px !important;
+    margin-top: 8px;
+    border-right:0 !important;
+}
+body  {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.breadcumbs ul {
+    background-color: #4c5f6b;
+
+}
+
+.breadcumbs li{
+    color: white !important;
+
+}
+
+.breadcumbs a {
+    color: #fe4930;
+}
