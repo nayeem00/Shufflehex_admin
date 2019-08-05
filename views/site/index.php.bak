@@ -1,0 +1,330 @@
+<?php
+
+/* @var $this yii\web\View */
+
+$this->title = 'Dashboard';
+?>
+<style >
+
+    img {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        margin-left: -150px;
+        margin-top: -50px;
+        opacity: 0;
+    }
+</style>
+
+<canvas></canvas>
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJsAAAAYCAYAAADtRY/6AAAACXBIWXMAAAsTAAALEwEAmpwYAAAMJWlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIiB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgKFdpbmRvd3MpIiB4bXA6Q3JlYXRlRGF0ZT0iMjAxNy0wOS0yOVQxODozMzowMSswNjowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wNy0yOFQwMzozNTowNSswNjowMCIgeG1wOk1vZGlmeURhdGU9IjIwMTgtMDctMjhUMDM6MzU6MDUrMDY6MDAiIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDc2YTA5OTgtMTc1NC0zMjRlLTgzZmQtYTlkZTUxNDY4N2E0IiB4bXBNTTpEb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6Y2RiNzFiYzAtNDE3ZC1iMjRlLWIzNDgtNDcyYjk2MTA2ZTE3IiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6ZjBiNWM0OWEtMmNlNi1hYjQxLWJkMDAtMDIzMmJiNDkyNTllIiB0aWZmOk9yaWVudGF0aW9uPSIxIiB0aWZmOlhSZXNvbHV0aW9uPSI3MjAwMDAvMTAwMDAiIHRpZmY6WVJlc29sdXRpb249IjcyMDAwMC8xMDAwMCIgdGlmZjpSZXNvbHV0aW9uVW5pdD0iMiIgZXhpZjpDb2xvclNwYWNlPSIxIiBleGlmOlBpeGVsWERpbWVuc2lvbj0iMzAwMCIgZXhpZjpQaXhlbFlEaW1lbnNpb249IjE1MDAiPiA8cGhvdG9zaG9wOkRvY3VtZW50QW5jZXN0b3JzPiA8cmRmOkJhZz4gPHJkZjpsaT54bXAuZGlkOmM3ZjdiMWIyLWYwZDEtYTY0Zi1hYzAzLWU2OGZiOWY4YTc3NDwvcmRmOmxpPiA8cmRmOmxpPnhtcC5kaWQ6ZTk0OGViNGMtYTllOS1jYTQxLTg1ZmEtODdiNTM5MDJjZTIxPC9yZGY6bGk+IDwvcmRmOkJhZz4gPC9waG90b3Nob3A6RG9jdW1lbnRBbmNlc3RvcnM+IDx4bXBNTTpIaXN0b3J5PiA8cmRmOlNlcT4gPHJkZjpsaSBzdEV2dDphY3Rpb249ImNyZWF0ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6ZjBiNWM0OWEtMmNlNi1hYjQxLWJkMDAtMDIzMmJiNDkyNTllIiBzdEV2dDp3aGVuPSIyMDE3LTA5LTI5VDE4OjMzOjAxKzA2OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNSAoV2luZG93cykiLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjRlNGE1MDA5LWI0ODYtNjY0Yi1iNWU0LTAxYzQ1ZGMxMzJkZCIgc3RFdnQ6d2hlbj0iMjAxNy0wOS0yOVQyMTowNTowOCswNjowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiBzdEV2dDpjaGFuZ2VkPSIvIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDpjMmQ3Mjg2My1jZDQwLTEyNDktYjBmMi02OTIyZTE0NzdkZjQiIHN0RXZ0OndoZW49IjIwMTgtMDctMjRUMjI6MjY6MjErMDY6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249ImNvbnZlcnRlZCIgc3RFdnQ6cGFyYW1ldGVycz0iZnJvbSBhcHBsaWNhdGlvbi92bmQuYWRvYmUucGhvdG9zaG9wIHRvIGltYWdlL3BuZyIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iZGVyaXZlZCIgc3RFdnQ6cGFyYW1ldGVycz0iY29udmVydGVkIGZyb20gYXBwbGljYXRpb24vdm5kLmFkb2JlLnBob3Rvc2hvcCB0byBpbWFnZS9wbmciLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmRlYjliOTQ2LTYxNjEtMjA0ZS04MTRiLTdkYjMyZjNlMzgwYSIgc3RFdnQ6d2hlbj0iMjAxOC0wNy0yNFQyMjoyNjoyMSswNjowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNl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" alt="" class="logo" />
+
+<script>
+
+    function Particle(x, y, color) {
+        this.finished = false;
+        this.color = color;
+        this.des = { x: x, y: y };
+        this.init = { x: 0, y: 0 };
+        this.offset = { x: 0, y: 0 };
+        this.current = { x: 0, y: 0 };
+        this.prev = { x: 0, y: 0 };
+
+        this.started = false;
+        this.percent = 0;
+        this.timePass = 0;
+        this.dur = 2000 + Math.random() * 4000;
+
+        this.easing = function(t, b, c, d) {
+            if ((t/=d/2) < 1) return c/2*t*t*t + b;
+            return c/2*((t-=2)*t*t + 2) + b;
+        };
+    }
+
+    Particle.prototype = {
+        update: function(delta) {
+            if (!this.started && !this.finished) return;
+            this.timePass += delta;
+
+            this.percent = this.easing(this.timePass, 0, 1, this.dur);
+            this.prev = this.current;
+            this.current = {
+                x: this.init.x + this.offset.x * this.percent,
+                y: this.init.y + this.offset.y * this.percent
+            };
+
+            if (this.percent >= 1) {
+                this.percent = 1;
+                this.finished = true;
+                this.current.x = this.des.x;
+                this.current.y = this.des.y;
+            }
+        },
+        getCrood: function() {
+            return this.current;
+        },
+        start: function(startX, startY) {
+            var width = window.innerWidth * 5;
+            var height = window.innerHeight * 5;
+            var angle = Math.PI * 2 * Math.random();
+            var radius = Math.sqrt(width*width + height*height)/2;
+
+            startX = startX || (Math.cos(angle) * radius) + window.innerWidth/2;
+            startY = startY || (Math.sin(angle) * radius) + window.innerHeight/2;
+
+            this.started = true;
+            this.timePass = 0;
+            this.finished = false;
+            this.init = {x: startX, y: startY};
+            // this.init = { x: this.des.x, y: this.des.y + 400 };
+            // this.init = {x: startX, y: startY};
+            this.current = this.prev = this.init;
+            this.offset = { x: this.des.x - this.init.x, y: this.des.y - this.init.y }
+        },
+        reset: function(x, y) {
+            this.timePass = 0;
+            // this.started = false;
+            this.finished = false;
+            this.percent = 0;
+            this.timePass = 0;
+            this.dur = 4000 + Math.random() * 6000;
+            //this.des = {x: x, y: y}
+            this.current = this.prev = this.init;
+            this.offset = { x: this.des.x - this.init.x, y: this.des.y - this.init.y }
+        }
+    }
+
+
+    function Ani() {
+        this.particles = [];
+        this.wrap = document.querySelector('body');
+        this.cvs;
+        this.ctx;
+        this.offlineCtx;
+        this.offlineCvs;
+        this.background = '#fff';
+        this.img;
+        this.imgPos;
+
+        this.mouse = { x: 0, y: 0 };
+        this.screen = { width: window.innerWidth, height: window.innerHeight };
+        this.T;
+        this.init();
+    }
+
+    Ani.prototype = {
+        init: function() {
+            var that = this;
+            var img = new Image();
+            this.img = document.querySelector('.logo');
+
+            img.src = document.querySelector('.logo').src;
+            img.onload = function() {
+                that.create();
+                that.wrap.addEventListener('mousemove', that.mouseHandle());
+                that.tick();
+            }
+            window.addEventListener('resize', this.resize())
+        },
+
+        mouseHandle: function() {
+            var that = this;
+
+            function mouseHandle(e) {
+                that.mouse.x = e.offsetX;
+                that.mouse.y = e.offsetY;
+            }
+            that.mouseHandle = mouseHandle;
+            return mouseHandle;
+        },
+
+        resize: function() {
+            var that = this;
+
+            function resize() {
+                that.screen = { width: window.innerWidth, height: window.innerHeight };
+                that.cvs.width = that.screen.width;
+                that.cvs.height = that.screen.height;
+                that.offlineCvs.width = that.screen.width;
+                that.offlineCvs.height = that.screen.height;
+
+                var lastImgPos = that.imgPos;
+                that.imgPos = that.img.getBoundingClientRect();
+                that.imgPos = { top: that.img.offsetTop, left: that.img.getBoundingClientRect().left };
+
+                var imgPosOffset = {
+                    left: that.imgPos.left - lastImgPos.left,
+                    top: that.imgPos.top - lastImgPos.top
+                };
+
+                that.particles.forEach(function(particle) {
+                    particle.des.x += imgPosOffset.left;
+                    particle.des.y += imgPosOffset.top;
+                });
+            }
+            this.resize = resize;
+            return resize;
+        },
+
+        create: function() {
+            var imgPos = { top: this.img.offsetTop, left: this.img.getBoundingClientRect().left };
+
+            this.imgPos = imgPos;
+
+            // this.cvs = document.createElement('canvas');
+            //this.wrap.app//endChild(this.cvs);
+            this.cvs = this.wrap.querySelector('canvas');
+            this.offlineCvs = document.createElement('canvas');
+            this.resize();
+            this.ctx = this.cvs.getContext('2d');
+            this.offlineCtx = this.offlineCvs.getContext('2d');
+
+
+            // 从canvas 读取颜色信息，创建粒子
+            var imgData = [];
+            var imgCvs = document.createElement('canvas');
+            imgCvs.width = this.img.width;
+            imgCvs.height = this.img.height;
+            var imgCtx = imgCvs.getContext('2d');
+            imgCtx.drawImage(this.img, 0, 0);
+            var pixs = imgCtx.getImageData(0, 0, this.img.width, this.img.height).data;
+
+            for (var i = 0; i < pixs.length; i += 4) {
+                var r = pixs[i],
+                    g = pixs[i + 1],
+                    b = pixs[i + 2],
+                    a = pixs[i + 3];
+
+                if (a > 0) {
+                    var x = (i % (4 * this.img.width)) / 4;
+                    var y = parseInt(i / (4 * this.img.width));
+
+                    this.particles.push(new Particle(imgPos.left + x, imgPos.top + y, 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')'));
+                    // this.particles.push(new Particle(imgPos.left + x, imgPos.top + y, `rgba(${255*Math.random() | 0}, ${255*Math.random() | 0}, ${255*Math.random() | 0})`));
+                }
+            }
+        },
+
+        tick: function() {
+            var that = this;
+
+            var start = 3;
+            var startCount = 0;
+
+            var now = (new Date()).getTime();
+            var last = now;
+            var delta;
+            var reset = false;
+
+            function _tick() {
+                now = (new Date()).getTime();
+                delta = now - last;
+                delta = delta > 50 ? 16 : delta;
+                that.cvs.innerHTML = delta;
+                last = now;
+                startCount = 0;
+
+                if (!that.particles.length) { that.finish();
+                    return; }
+                that.particles.forEach(function(particle) {
+                    if (!particle.started && startCount < start && Math.random() > 0.5) {
+                        startCount++;
+                        particle.start(/* that.mouse.x, that.mouse.y */); // no mouse ...
+                    } else {
+                        particle.update(delta);
+                    }
+                });
+
+                that.draw();
+                if (!reset && that.particles.every(function(particle) {
+                        return particle.finished })) {
+                    //that.finish();
+                    var tmp;
+
+                    reset = true;
+                    setTimeout(function() {
+                        reset = false;
+                        that.particles.forEach(function(particle) {
+                            tmp = particle.des;
+                            particle.des = particle.init;
+                            particle.init = tmp;
+                            particle.reset();
+                        });
+                    }, 1000);
+
+                    //return;
+                }
+                window.requestAnimationFrame(_tick);
+            }
+
+            _tick();
+        },
+
+        draw: function() {
+            var particle;
+            var color = this.particles[3].color;
+            var r = 1;
+
+            //this.offlineCtx.globalAlpha = 0.5;
+            this.offlineCtx.save();
+            this.offlineCtx.globalCompositeOperation = 'destination-in';
+            this.offlineCtx.globalAlpha = 0.8;
+            this.offlineCtx.strokeStyle = this.offlineCtx.fillStyle = '#ffffff';
+            this.offlineCtx.fillRect(0, 0, this.screen.width, this.screen.height);
+            this.offlineCtx.restore();
+
+            this.offlineCtx.save();
+            // this.offlineCtx.globalCompositeOperation = 'lighter';
+            this.offlineCtx.beginPath();
+            // this.offlineCtx.strokeStyle = this.offlineCtx.fillStyle = '#00c3f5';
+            this.offlineCtx.lineWidth = r;
+            this.offlineCtx.lineCap = this.offlineCtx.lineJoin = 'round';
+            for (var i = 0; i < this.particles.length; i++) {
+                particle = this.particles[i];
+                // r = 5 * (1.3-particle.percent);
+                this.offlineCtx.beginPath();
+                this.offlineCtx.lineWidth = r;
+                this.offlineCtx.moveTo(particle.current.x, particle.current.y);
+                this.offlineCtx.lineTo(particle.prev.x, particle.prev.y);
+                this.offlineCtx.strokeStyle = particle.color;
+                this.offlineCtx.stroke();
+                // console.log(particle.color);
+            }
+            // this.offlineCtx.stroke();
+
+            // this.offlineCtx.beginPath();
+//         for (var i = 0; i < this.particles.length; i++) {
+//             particle = this.particles[i];
+//             if (particle.started) {
+//                 var pCrood = particle.getCrood();
+//                 r = 1;
+//                 // r = 5 * (1.3-particle.percent);
+//                 //console.log(~~pCrood.x, ~~pCrood.y);
+//                 this.offlineCtx.beginPath();
+//                 this.offlineCtx.fillStyle = particle.color;
+//                 this.offlineCtx.fillRect(pCrood.x-r/2, pCrood.y-r/2, r, r);
+
+//                 //this.offlineCtx.moveTo(pCrood.x, pCrood.y);
+//                 //this.offlineCtx.arc(pCrood.x, pCrood.y, r, 0, Math.PI * 2, false);
+//             }
+//         }
+            //this.offlineCtx.fill();
+            this.offlineCtx.restore();
+
+            this.ctx.fillStyle = this.background;
+            this.ctx.fillRect(0, 0, this.screen.width, this.screen.height);
+
+            this.ctx.drawImage(this.offlineCvs, 0, 0);
+        },
+
+        finish: function() {
+            this.wrap.removeEventListener('mousemove', this.mouseHandle);
+            window.removeEventListener('resize', this.resize);
+            window.cancelAnimationFrame(this.T);
+        }
+
+    }
+
+
+    new Ani
+</script>
